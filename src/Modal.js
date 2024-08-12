@@ -1,16 +1,17 @@
-// src/Modal.js
+// Modal.js
 import React from 'react';
-import './Modal.css'; // Create this CSS file for modal styling
+import './Modal.css'; // Create a CSS file for styling the modal
 
-const Modal = ({ isVisible, onClose, imageSrc, title }) => {
-  if (!isVisible) return null;
+const Modal = ({ show, image, onClose }) => {
+  if (!show) {
+    return null;
+  }
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <button className="modal-close" onClick={onClose}>×</button>
-        <img src={imageSrc} alt={title} className="modal-image" />
-        {/* <h2>{title}</h2> */}
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <img src={image} alt="Popup" />
+        <button onClick={onClose} className="modal-close-button">Close</button>
       </div>
     </div>
   );

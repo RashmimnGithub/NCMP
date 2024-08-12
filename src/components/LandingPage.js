@@ -137,22 +137,7 @@ const LandingPage = () => {
   const [selectedService, setSelectedService] = useState(null);
   const [userInfo, setUserInfo] = useState({ fullName: " ", email: " ", department: " " });
   const [isTooltipVisible, setTooltipVisible] = useState(false);
-  const [subButtonCategory, setSubButtonCategory] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalContent, setModalContent] = useState({ imageSrc: '', title: '' });
-
-  const handleLogout = async () => {
-    try {
-      await auth.signOut();
-      navigate("/login");
-    } catch (error) {
-      console.error("Error logging out:", error.message);
-    }
-  };
-
-  const handleBack = () => {
-    window.history.back();
-  };
+  const [subButtonCategory, setSubButtonCategory] = useState(null); // Track selected sub-category
 
   const handleServiceClick = (service) => {
     setSelectedService(service);
@@ -160,24 +145,11 @@ const LandingPage = () => {
   };
 
   const handleSubButtonClick = (category) => {
-    setSubButtonCategory(category);
-  };
-
-  const showModal = (imageSrc, title) => {
-    setModalContent({ imageSrc, title });
-    setModalVisible(true);
-  };
-
-  const hideModal = () => {
-    setModalVisible(false);
+    setSubButtonCategory(category); // Set the selected sub-category
   };
 
   const toggleTooltip = () => {
     setTooltipVisible(!isTooltipVisible);
-  };
-
-  const handleHomeNavigate = () => {
-    navigate("/homepage");
   };
 
   useEffect(() => {
@@ -217,7 +189,7 @@ const LandingPage = () => {
   return (
     <div className="landing-page-container">
       <div className="header">
-        <div className="logo-wrapper" onClick={handleHomeNavigate}>
+        <div className="logo-wrapper" onClick={() => navigate("/homepage")}>
           <img src={companyLogo} alt="Company Logo" className="company-logo" />
         </div>
         <h1 className="company-name">Netcon Technologies</h1>
@@ -228,11 +200,11 @@ const LandingPage = () => {
               <p>{userInfo.fullName}</p>
               <p>{userInfo.email}</p>
               <p>{userInfo.department}</p>
-              <button className="logout-button" onClick={handleLogout}>Logout</button>
+              <button className="logout-button" onClick={async () => await auth.signOut()}>Logout</button>
             </div>
           )}
         </div>
-        <button className="back-button" onClick={handleBack}>&larr; Back</button>
+        <button className="back-button" onClick={() => window.history.back()}>&larr; Back</button>
       </div>
       <div className="content-container">
         <div className="sidebar">
@@ -249,35 +221,38 @@ const LandingPage = () => {
           {selectedService ? (
             <>
               <h2>{selectedService.title}</h2>
-              <div className="win">
-                <img src={selectedService.image} alt={selectedService.title} className="content-image" />
-                <p>{selectedService.content}</p>
-              </div>
+
+              {!subButtonCategory ? (
+                <div className="win">
+                  <img src={selectedService.image} alt={selectedService.title} className="content-image" />
+                  <p>{selectedService.content}</p>
+                </div>
+              ) : null}
 
               {selectedService.title === "Dashboard" ? (
                 <div className="dashboard-service-content">
-                  <div className="dashboard-logos-container">
-                    <div className="dashboard-logo-item" onClick={() => handleSubButtonClick('customer')}>
-                      <img src={customerLogo} alt="Customer Logo" />
-                      <p>Customer</p>
+                  {!subButtonCategory ? (
+                    <div className="dashboard-logos-container">
+                      <div className="dashboard-logo-item" onClick={() => handleSubButtonClick('customer')}>
+                        <img src={customerLogo} alt="Customer Logo" />
+                        <p>Customer</p>
+                      </div>
+                      <div className="dashboard-logo-item" onClick={() => handleSubButtonClick('admin')}>
+                        <img src={adminLogo} alt="Admin Logo" />
+                        <p>Admin</p>
+                      </div>
+                      <div className="dashboard-logo-item" onClick={() => handleSubButtonClick('manager')}>
+                        <img src={managerLogo} alt="Manager Logo" />
+                        <p>Manager</p>
+                      </div>
                     </div>
-                    <div className="dashboard-logo-item" onClick={() => handleSubButtonClick('admin')}>
-                      <img src={adminLogo} alt="Admin Logo" />
-                      <p>Admin</p>
-                    </div>
-                    <div className="dashboard-logo-item" onClick={() => handleSubButtonClick('manager')}>
-                      <img src={managerLogo} alt="Manager Logo" />
-                      <p>Manager</p>
-                    </div>
-                  </div>
-
-                  {subButtonCategory && (
+                  ) : (
                     <div className="sub-buttons-container">
                       {subButtons[subButtonCategory].map((subButton, index) => (
                         <button
                           key={index}
                           className="sub-button"
-                          onClick={() => showModal(subButton.image, subButton.title)}
+                          onClick={() => navigate(subButton.path)}
                         >
                           {subButton.title}
                         </button>
@@ -308,12 +283,6 @@ const LandingPage = () => {
           )}
         </div>
       </div>
-      <Modal
-        isVisible={modalVisible}
-        onClose={hideModal}
-        imageSrc={modalContent.imageSrc}
-        // title={modalContent.title}
-      />
     </div>
   );
 };

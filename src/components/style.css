@@ -51,6 +51,7 @@ body {
 
 .heading_container img {
   width: 30px;
+  height: 30px;
 }
 
 /*header section*/
@@ -156,7 +157,8 @@ a:focus {
 
 .navbar-brand img {
   margin-right: 5px;
-  width: 80px;
+  width: 100px;
+  height: 60px;
 }
 
 .navbar-brand span {
@@ -374,7 +376,7 @@ a:focus {
 }
 
 .service_section .service_container .box .img-box img {
-  width: 90px;
+  width: 100px;
 }
 
 .service_section .service_container .box .detail-box {
