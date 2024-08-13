@@ -2,7 +2,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { useAuth } from "./AuthContext";
 import { toast } from "react-toastify";
-import SignInwithGoogle from "./signInWIthGoogle";
+// import SignInwithGoogle from "./signInWIthGoogle";
 import { auth } from "./firebase";
 import { useNavigate } from "react-router-dom";
 import companyLogo from "../yqgzPwOk.jpg"; // Update the path to your logo
@@ -80,7 +80,7 @@ function Login() {
               {/* <p className="forgot-password text-right">
                 login with mobile <a href="/otp">Send OTP</a>
               </p> */}
-              <SignInwithGoogle />
+              {/* <SignInwithGoogle /> */}
               <p className="forgot-password">
                 No Account? <a href="/register">Register</a>
               </p>

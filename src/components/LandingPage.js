@@ -14,7 +14,7 @@ import soc from "../images/soc_image.png"
 import asset from "../images/asset.jpg"
 import cloud from "../images/cloud management_image.png"
 import noc from "../images/noc_images.webp"
-import Modal from "../Modal"; // Import the modal component
+// import Modal from "../Modal"; // Import the modal component
 
 import reporting_images from "../images/reporting_image.png"
 
