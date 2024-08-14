@@ -5,22 +5,19 @@ import { doc, getDoc } from "firebase/firestore";
 import "./landingPage.css";
 import companyLogo from "../yqgzPwOk.jpg"; // Update the path to your logo
 import userIcon from "../R.png"; // Update the path to your user icon
-import monitoring from "../images/Monitoring_image.jpg"
-import itsm from "../images/itsm_image.png"
-import automation from "../images/automation_image.jpg"
-import reporting from "../images/reporting_image.jpg"
-import finops from "../images/finops_image.png"
-import soc from "../images/soc_image.png"
-import asset from "../images/asset.jpg"
-import cloud from "../images/cloud management_image.png"
-import noc from "../images/noc_images.webp"
-import Modal from "../Modal"; // Import the modal component
-
-import reporting_images from "../images/reporting_image.png"
-
-import customerLogo from "../images/customer_logo.png"; // Update with the path to your customer logo
-import adminLogo from "../images/admin_logo.webp"; // Update with the path to your admin logo
-import managerLogo from "../images/manager_logo.png"; // Update with the path to your manager logo
+import monitoring from "../images/Monitoring_image.jpg";
+import itsm from "../images/itsm_image.png";
+import automation from "../images/automation_image.jpg";
+import reporting from "../images/reporting_image.jpg";
+import finops from "../images/finops_image.png";
+import soc from "../images/soc_image.png";
+import asset from "../images/asset.jpg";
+import cloud from "../images/cloud management_image.png";
+import noc from "../images/noc_images.webp";
+import reporting_images from "../images/reporting_image.png";
+import customerLogo from "../images/customer_logo.png";
+import adminLogo from "../images/admin_logo.webp";
+import managerLogo from "../images/manager_logo.png";
 
 const buttonData = [
   {
@@ -59,81 +56,79 @@ const buttonData = [
     image: asset
   },
   {
-    path: "/up",
+    path: "https://netconzone.surpaascompaas.com/surpaas/#",
     title: "Finops",
     content: "FinOps is an operational framework and cultural practice which maximizes the business value of cloud, enables timely data-driven decision making, and creates financial accountability through collaboration between engineering, finance, and business teams.",
     department: ["admin", "user"],
     image: finops
   },
   {
-    path: "/soc",
+    path: "/up",
     title: "SoC",
     content: "A Cloud SOC monitors cloud applications and infrastructure 24/7 to detect vulnerabilities, respond to threats, and prevent attacks. It ensures continuous vigilance over an organization’s IT infrastructure, maintaining security while adhering to compliance requirements.",
     department: ["admin"],
     image: soc
   },
   {
-    path: "https://netconzone.surpaascompaas.com/surpaas/#",
+    path: "/up",
     title: "CMP",
     content: "A Cloud Management Platform (CMP) is a software tool that helps organizations manage and optimize their cloud infrastructure across multiple cloud providers and services. CMPs provide a centralized interface for monitoring, provisioning, deploying, and managing cloud resources, such as virtual machines, containers, storage, and networking",
     department: ["admin", "user"],
     image: cloud
   },
+  // {
+  //   path: "/noc",
+  //   title: "NoC",
+  //   content: "The Network Operations Center (NOC) is a centralized location where 24/7 monitoring and management of events affecting technology services and infrastructure take place. Originating in the late 1970s by telecommunication service providers, today’s NOCs monitor not only networking equipment but also cloud, power, environmental, and service aspects.",
+  //   department: ["admin"],
+  //   image: noc
+  // },
   {
-    path: "/noc",
-    title: "NoC",
-    content: "The Network Operations Center (NOC) is a centralized location where 24/7 monitoring and management of events affecting technology services and infrastructure take place. Originating in the late 1970s by telecommunication service providers, today’s NOCs monitor not only networking equipment but also cloud, power, environmental, and service aspects.",
-    department: ["admin"],
-    image: noc
-  },
-  {
-    path: "https://app.powerbi.com/links/G56uML9AUH?ctid=3865b44b-651f-4df8-a0c8-2625494f6198&pbi_source=linkSharea",
+    // path: "https://app.powerbi.com/links/G56uML9AUH?ctid=3865b44b-651f-4df8-a0c8-2625494f6198&pbi_source=linkSharea",
     title: "Dashboard",
-    content: "Cloud reporting involves collecting, analyzing, and presenting data generated in a cloud environment to derive valuable insights for better decision-making12. It transforms raw data into meaningful charts, graphs, and tables, enabling real-time insights and timely decisions.",
+    content: "Cloud reporting involves collecting, analyzing, and presenting data generated in a cloud environment to derive valuable insights for better decision-making. It transforms raw data into meaningful charts, graphs, and tables, enabling real-time insights and timely decisions.",
     department: ["admin"],
     image: reporting
   },
 ];
+
 
 const subButtons = {
   customer: [
     {
       title: "Customer Button 1",
       path: "/customer1",
-      image: reporting_images, // Add image path
+      image: reporting_images,
     },
     {
       title: "Customer Button 2",
       path: "/customer2",
-      image: "../images/customer2_image.png", // Add image path
+      image: "../images/customer2_image.png",
     },
-    // Add more customer buttons as needed
   ],
   admin: [
     {
       title: "Admin Button 1",
       path: "/admin1",
-      image: "../images/admin1_image.png", // Add image path
+      image: "../images/admin1_image.png",
     },
     {
       title: "Admin Button 2",
       path: "/admin2",
-      image: "../images/admin2_image.png", // Add image path
+      image: "../images/admin2_image.png",
     },
-    // Add more admin buttons as needed
   ],
   manager: [
     {
       title: "Manager Button 1",
       path: "/manager1",
-      image: "../images/manager1_image.png", // Add image path
+      image: "../images/manager1_image.png",
     },
     {
       title: "Manager Button 2",
       path: "/manager2",
-      image: "../images/manager2_image.png", // Add image path
+      image: "../images/manager2_image.png",
     },
-    // Add more manager buttons as needed
   ],
 };
 
@@ -144,15 +139,15 @@ const LandingPage = () => {
   const [selectedService, setSelectedService] = useState(null);
   const [userInfo, setUserInfo] = useState({ fullName: " ", email: " ", department: " " });
   const [isTooltipVisible, setTooltipVisible] = useState(false);
-  const [subButtonCategory, setSubButtonCategory] = useState(null); 
+  const [subButtonCategory, setSubButtonCategory] = useState(null);
 
   const handleServiceClick = (service) => {
     setSelectedService(service);
-    setSubButtonCategory(null); 
+    setSubButtonCategory(null);
   };
 
   const handleSubButtonClick = (category) => {
-    setSubButtonCategory(category); 
+    setSubButtonCategory(category);
   };
 
   const toggleTooltip = () => {
@@ -193,10 +188,6 @@ const LandingPage = () => {
     return <div>Loading...</div>;
   }
 
-  const openServiceLink = (url) => {
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
   return (
     <div className="landing-page-container">
       <div className="header">
@@ -233,7 +224,6 @@ const LandingPage = () => {
           {selectedService ? (
             <>
               <h2>{selectedService.title}</h2>
-
               {!subButtonCategory ? (
                 <div className="win">
                   <img src={selectedService.image} alt={selectedService.title} className="content-image" />
@@ -241,7 +231,30 @@ const LandingPage = () => {
                 </div>
               ) : null}
 
-              {selectedService.title === "Dashboard" ? (
+              {selectedService.title === "Monitoring" ? (
+                <div className="monitoring-content">
+                  <button
+                    onClick={() => window.open(selectedService.path, "_blank", "noopener,noreferrer")}
+                  >
+                    Open Monitoring
+                  </button>
+                  <br /><br />
+                  <div className="monitoring-content">
+                    <h2>NoC</h2>
+                    <div className="win">
+                      <img src={noc} alt="NoC" className="content-image" />
+                      <p>
+                        The Network Operations Center (NoC) is responsible for monitoring and managing network performance and security. It ensures optimal operation of the network infrastructure, detects issues, and provides timely solutions to maintain seamless service delivery.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => window.open(selectedService.path, "_blank", "noopener,noreferrer")}
+                    >
+                      Open NoC
+                    </button>
+                  </div>
+                </div>
+              ) : selectedService.title === "Dashboard" ? (
                 <div className="dashboard-service-content">
                   {!subButtonCategory ? (
                     <div className="dashboard-logos-container">
@@ -274,7 +287,7 @@ const LandingPage = () => {
                 </div>
               ) : (
                 <div className="service-content">
-                  <button onClick={() => openServiceLink(selectedService.path)}>
+                  <button onClick={() => window.open(selectedService.path, "_blank", "noopener,noreferrer")}>
                     Open {selectedService.title}
                   </button>
                 </div>

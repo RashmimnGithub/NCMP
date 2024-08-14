@@ -55,7 +55,7 @@ function App() {
                 <Route path="/landing" element={<PrivateRoute><LandingPage /></PrivateRoute>} />
                 <Route path="/noc" element={<PrivateRoute><NOC /></PrivateRoute>} />
                 <Route path="/soc" element={<PrivateRoute><SOC /></PrivateRoute>} />
-                <Route path="/up" element={<PrivateRoute><UP /></PrivateRoute>} />
+                <Route path="/up" element={<UP />} />
                 <Route path="/homepage" element={<PrivateRoute><Home /></PrivateRoute>} />
               </Routes>
               <ToastContainer />
