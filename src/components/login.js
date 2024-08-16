@@ -12,13 +12,14 @@ import "./login.css";
 function Login() {
   const { setUser } = useAuth();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [lname, setLname] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, phone, lname);
       console.log("User logged in Successfully");
       setUser(auth.currentUser); // Set user in AuthContext
       // toast.success("User logged in Successfully", {
@@ -49,6 +50,7 @@ function Login() {
           <div className="container">
             <form onSubmit={handleSubmit}>
               {/* <h3>Login</h3> */}
+              
               <div className="mb-3">
                 <label>Email address</label>
                 <input
@@ -59,16 +61,29 @@ function Login() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+
               <div className="mb-3">
-                <label>Password</label>
+                <label>Last Name</label>
                 <input
                   type="password"
                   className="form-control"
-                  placeholder="Enter password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your Last name"
+                  value={lname}
+                  onChange={(e) => setLname(e.target.value)}
                 />
               </div>
+              
+              <div className="mb-3">
+                <label>Phone Number</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  placeholder="Enter phone no."
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+              
               <div className="d-grid">
                 <button type="submit" className="btn btn-primary">
                   Submit
