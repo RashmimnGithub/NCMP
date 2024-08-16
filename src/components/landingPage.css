@@ -65,6 +65,8 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   cursor: pointer;
+  display:flex;
+  gap:20px;
   transition: background-color 0.3s ease;
 }
 
@@ -75,6 +77,14 @@
 .sidebar-item.active {
   background-color: #007bff;
   color: white;
+}
+
+.sidebar-title {
+  flex: 1; /* Allow the title to take up remaining space */
+}
+
+.sidebar-arrow {
+  margin-left: auto; /* Push the arrow to the rightmost position */
 }
 
 .content {

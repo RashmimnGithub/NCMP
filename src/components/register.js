@@ -10,8 +10,8 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
+  const [fullname, setFname] = useState("");
+  // const [lname, setLname] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("+91");
   const [department, setDepartment] = useState("");
   
@@ -57,8 +57,8 @@ function Register() {
       if (user) {
         await setDoc(doc(db, "Users", user.uid), {
           email: user.email,
-          fullName: fname,
-          lastName: lname,
+          fullName: fullname,
+          // lastName: lname,
           phoneNumber: phoneNumber,
           department: department,
           photo : ""
@@ -92,25 +92,13 @@ function Register() {
       <h3>Sign Up</h3>
 
       <div className="mb-3">
-        <label>First Name</label>
+        <label>Full Name</label>
         <input
           type="text"
           className="form-control"
           placeholder="First name"
-          value={fname}
+          value={fullname}
           onChange={(e) => setFname(e.target.value)}
-          required
-        />
-      </div>
-
-      <div className="mb-3">
-        <label>Last Name</label>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="last name"
-          value={lname}
-          onChange={(e) => setLname(e.target.value)}
           required
         />
       </div>

@@ -25,56 +25,64 @@ const buttonData = [
     title: "Monitoring",
     content: "Monitoring is a process to periodically collect, analyse and use information to actively manage performance, maximise positive impacts and minimise the risk of adverse impacts.",
     department: ["admin"],
-    image: monitoring
+    image: monitoring,
+    icon: "fa-solid fa-chart-line" // FontAwesome class
   },
   {
     path: "https://support.netcon.in:8448/",
     title: "ITSM",
     content: "ITSM in cloud refers to IT Service Management solutions that are deployed and delivered through cloud infrastructure. ITSM cloud solutions can simplify the operations, planning, and implementation of IT services for businesses.",
     department: ["admin", "user"],
-    image: itsm
+    image: itsm,
+    icon: "fa-solid fa-cogs"
   },
   {
     path: "https://20.197.35.43:443",
     title: "Automation",
     content: "AWX makes it possible for users across an organization to share, vet, and manage automation content by means of a simple, powerful, and agentless technical implementation. IT managers can provide guidelines on how automation is applied to individual teams",
     department: ["admin"],
-    image: automation
+    image: automation,
+    icon: "fas fa-desktop"
   },
   {
     path: "https://20.197.35.43:443",
     title: "Evergreen Patching",
     content: "AWX makes it possible for users across an organization to share, vet, and manage automation content by means of a simple, powerful, and agentless technical implementation. IT managers can provide guidelines on how automation is applied to individual teams",
     department: ["admin"],
-    image: automation
+    image: automation,
+    icon: "fa fa-cloud"
   },
   {
     path: "/up",
     title: "Asset Management",
     content: "Cloud Asset Management (CAM) is a crucial practice in today’s digital era. It focuses on managing and tracking resources essential for delivering cloud services. These assets include both tangible elements, such as physical or virtual storage and servers, as well as intangible components like software licenses and undocumented staff knowledge",
     department: ["admin", "user"],
-    image: asset
+    image: asset,
+    icon: "fas fa-database"
   },
   {
     path: "https://netconzone.surpaascompaas.com/surpaas/#",
     title: "Finops",
     content: "FinOps is an operational framework and cultural practice which maximizes the business value of cloud, enables timely data-driven decision making, and creates financial accountability through collaboration between engineering, finance, and business teams.",
     department: ["admin", "user"],
-    image: finops
+    image: finops,
+    icon: "fas fa-hand-holding-usd"
   },
   {
     path: "/up",
     title: "SoC",
     content: "A Cloud SOC monitors cloud applications and infrastructure 24/7 to detect vulnerabilities, respond to threats, and prevent attacks. It ensures continuous vigilance over an organization’s IT infrastructure, maintaining security while adhering to compliance requirements.",
     department: ["admin"],
-    image: soc
+    image: soc,
+    icon: "fas fa-shield-alt"
   },
   {
     path: "/up",
     title: "CMP",
     content: "A Cloud Management Platform (CMP) is a software tool that helps organizations manage and optimize their cloud infrastructure across multiple cloud providers and services. CMPs provide a centralized interface for monitoring, provisioning, deploying, and managing cloud resources, such as virtual machines, containers, storage, and networking",
     department: ["admin", "user"],
-    image: cloud
+    image: cloud,
+    icon: "fas fa-server"
   },
   // {
   //   path: "/noc",
@@ -88,7 +96,8 @@ const buttonData = [
     title: "Dashboard",
     content: "Cloud reporting involves collecting, analyzing, and presenting data generated in a cloud environment to derive valuable insights for better decision-making. It transforms raw data into meaningful charts, graphs, and tables, enabling real-time insights and timely decisions.",
     department: ["admin"],
-    image: reporting
+    image: reporting,
+    icon: "fas fa-poll-h"
   },
 ];
 
@@ -216,8 +225,11 @@ const LandingPage = () => {
               className={`sidebar-item ${selectedService === button ? "active" : ""}`}
               onClick={() => handleServiceClick(button)}
             >
-              {button.title}
+              <i className={button.icon}></i> {/* Icon before the title */}
+              <span className="sidebar-title">{button.title}</span>
+              <i className="fa-solid fa-arrow-right sidebar-arrow"></i> {/* Right arrow icon */}
             </div>
+            
           ))}
         </div>
         <div className="content">
