@@ -23,7 +23,7 @@
 }
 
 .company-name {
-  font-size: 40px;
+  font-size: 30px;
   flex-grow: 1;
   text-align: center;
   margin: 0;
@@ -267,3 +267,52 @@
   background-color: #0056b3;
 }
 
+@media (max-width: 768px) {
+  .content-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .content {
+    padding: 10px;
+  }
+
+  .dashboard-logo-item {
+    width: 100px;
+    height: 100px;
+  }
+
+  .dashboard-service-content .dashboard-logo-item img {
+    width: 60px;
+  }
+
+  .dashboard-service-content .dashboard-logo-item p {
+    font-size: 14px;
+  }
+
+  .user-info-tooltip {
+    width: auto;
+    right: 10px;
+    left: 10px;
+  }
+}
+
+.modal-content {
+  position: relative;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 80%;
+  max-height: 80%;
+  overflow: auto;
+}
+
+.modal .react-pdf__Page {
+  display: flex;
+  justify-content: center;
+}

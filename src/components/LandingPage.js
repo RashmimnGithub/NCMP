@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { Document, Page } from "react-pdf"; // Import react-pdf components
 import "./landingPage.css";
 import companyLogo from "../yqgzPwOk.jpg"; // Update the path to your logo
 import userIcon from "../R.png"; // Update the path to your user icon
@@ -14,10 +15,12 @@ import soc from "../images/soc_image.png";
 import asset from "../images/asset.jpg";
 import cloud from "../images/cloud management_image.png";
 import noc from "../images/noc_images.webp";
-import reporting_images from "../images/reporting_image.png";
+// import reporting_images from "../images/reporting_image.png";
 import customerLogo from "../images/customer_logo.png";
 import adminLogo from "../images/admin_logo.webp";
 import managerLogo from "../images/manager_logo.png";
+import "./Modal.css"
+import customerpdf from "../DC_IT_Infra_Customer.pdf"
 
 const buttonData = [
   {
@@ -106,40 +109,35 @@ const subButtons = {
   customer: [
     {
       title: "Customer Button 1",
-      path: "/customer1",
-      image: reporting_images,
+      pdf: customerpdf, // Use PDF file instead of image
     },
     {
       title: "Customer Button 2",
-      path: "/customer2",
-      image: "../images/customer2_image.png",
-    },
-  ],
-  admin: [
-    {
-      title: "Admin Button 1",
-      path: "/admin1",
-      image: "../images/admin1_image.png",
-    },
-    {
-      title: "Admin Button 2",
-      path: "/admin2",
-      image: "../images/admin2_image.png",
+      pdf: "../path-to-another-pdf-file.pdf", // Another PDF file
     },
   ],
   manager: [
     {
       title: "Manager Button 1",
-      path: "/manager1",
-      image: "../images/manager1_image.png",
+      pdf: "../path-to-manager-pdf-file.pdf", // Manager's PDF
     },
     {
       title: "Manager Button 2",
-      path: "/manager2",
-      image: "../images/manager2_image.png",
+      pdf: "../path-to-another-manager-pdf-file.pdf", // Another Manager's PDF
+    },
+  ],
+  admin: [
+    {
+      title: "Admin Button 1",
+      pdf: "../path-to-admin-pdf-file.pdf", // Admin's PDF
+    },
+    {
+      title: "Admin Button 2",
+      pdf: "../path-to-another-admin-pdf-file.pdf", // Another Admin's PDF
     },
   ],
 };
+
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -149,6 +147,10 @@ const LandingPage = () => {
   const [userInfo, setUserInfo] = useState({ fullName: " ", email: " ", department: " " });
   const [isTooltipVisible, setTooltipVisible] = useState(false);
   const [subButtonCategory, setSubButtonCategory] = useState(null);
+
+  // New state for modal
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [selectedPdf, setSelectedPdf] = useState(null);
 
   const handleServiceClick = (service) => {
     setSelectedService(service);
@@ -161,6 +163,16 @@ const LandingPage = () => {
 
   const toggleTooltip = () => {
     setTooltipVisible(!isTooltipVisible);
+  };
+
+  const showModal = (pdf) => {
+    setSelectedPdf(pdf);
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+    setSelectedPdf(null);
   };
 
   useEffect(() => {
@@ -274,13 +286,13 @@ const LandingPage = () => {
                         <img src={customerLogo} alt="Customer Logo" />
                         <p>Customer</p>
                       </div>
-                      <div className="dashboard-logo-item" onClick={() => handleSubButtonClick('admin')}>
-                        <img src={adminLogo} alt="Admin Logo" />
-                        <p>Admin</p>
-                      </div>
                       <div className="dashboard-logo-item" onClick={() => handleSubButtonClick('manager')}>
                         <img src={managerLogo} alt="Manager Logo" />
                         <p>Manager</p>
+                      </div>
+                      <div className="dashboard-logo-item" onClick={() => handleSubButtonClick('admin')}>
+                        <img src={adminLogo} alt="Admin Logo" />
+                        <p>Admin</p>
                       </div>
                     </div>
                   ) : (
@@ -289,7 +301,7 @@ const LandingPage = () => {
                         <button
                           key={index}
                           className="sub-button"
-                          onClick={() => navigate(subButton.path)}
+                          onClick={() => showModal(subButton.pdf)}
                         >
                           {subButton.title}
                         </button>
@@ -310,6 +322,17 @@ const LandingPage = () => {
           )}
         </div>
       </div>
+
+      {isModalVisible && selectedPdf && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close-button" onClick={closeModal}>&times;</span>
+            <Document file={selectedPdf} onLoadError={console.error}>
+              <Page pageNumber={1} />
+            </Document>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
