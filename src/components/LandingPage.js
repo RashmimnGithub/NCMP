@@ -22,6 +22,8 @@ import customerLogo from "../images/customer_logo.png";
 import adminLogo from "../images/admin_logo.webp";
 import managerLogo from "../images/manager_logo.png";
 
+import {token} from "./token.js"
+
 // import Customer_button1 from "../images/DC_IT_Infra_customer1.png";
 // import Customer_button2 from "../images/DC_IT_Infra_customer2.png";
 
@@ -171,15 +173,11 @@ const LandingPage = () => {
   };
 
 
-  const showModal = async (imageName) => {
+  const showModal = async (imageName, token) => {
     try {
       const response = await fetch(`https://api.github.com/repos/RashmimnGithub/private-test/contents/${imageName}`, {
         headers: {
-<<<<<<< HEAD
-          // Authorization: `token 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`,  // Replace with your actual token
-=======
-          Authorization: `token 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`,  // Replace with your actual token
->>>>>>> 27919c1981373eb8642a08dfc4f46f730497077e
+          Authorization: `token ${token}`,  // Replace with your actual token
           Accept: 'application/vnd.github.v3.raw'
         }
       });
@@ -343,12 +341,12 @@ const LandingPage = () => {
                   ) : (
                     <div className="sub-buttons-container"> 
                       <button
-                        onClick={() => showModal('DC_IT_Infra_customer1.png')}
+                        onClick={() => showModal('DC_IT_Infra_customer1.png',token)}
                       >
                         Customer Button 1
                       </button>
                       <button
-                        onClick={() => showModal('DC_IT_Infra_customer2.png')}
+                        onClick={() => showModal('DC_IT_Infra_customer2.png',token)}
                       >
                         Customer Button 2
                       </button>
