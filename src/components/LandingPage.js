@@ -170,30 +170,12 @@ const LandingPage = () => {
     setTooltipVisible(!isTooltipVisible);
   };
 
-  // const fetchImageFromGitHub = async () => {
-  //   const response = await fetch(`https://api.github.com/repos/RashmimnGithub/private-test/contents/${imageName}`, {
-  //     headers: {
-  //       Authorization: `token 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`,
-  //       Accept: 'application/vnd.github.v3.raw'
-  //     }
-  //   });
-  
-  //   if (response.ok) {
-  //     const imageBlob = await response.blob();
-  //     const imageObjectURL = URL.createObjectURL(imageBlob);
-  //     showModal(imageObjectURL);
-  //   } else {
-  //     console.error('Failed to fetch image from GitHub:', response.statusText);
-  //   }
-  // };
-  
-
 
   const showModal = async (imageName) => {
     try {
       const response = await fetch(`https://api.github.com/repos/RashmimnGithub/private-test/contents/${imageName}`, {
         headers: {
-          Authorization: `token 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`,  // Replace with your actual token
+          // Authorization: `token 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`,  // Replace with your actual token
           Accept: 'application/vnd.github.v3.raw'
         }
       });
