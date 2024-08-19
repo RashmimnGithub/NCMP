@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { Document, Page } from "react-pdf"; // Import react-pdf components
+
 import "./landingPage.css";
+
 import companyLogo from "../yqgzPwOk.jpg"; // Update the path to your logo
 import userIcon from "../R.png"; // Update the path to your user icon
+
 import monitoring from "../images/Monitoring_image.jpg";
 import itsm from "../images/itsm_image.png";
 import automation from "../images/automation_image.jpg";
@@ -13,14 +15,17 @@ import reporting from "../images/reporting_image.jpg";
 import finops from "../images/finops_image.png";
 import soc from "../images/soc_image.png";
 import asset from "../images/asset.jpg";
-import cloud from "../images/cloud management_image.png";
+import cloud from "../images/cloud_management_image.png";
 import noc from "../images/noc_images.webp";
-// import reporting_images from "../images/reporting_image.png";
+
 import customerLogo from "../images/customer_logo.png";
 import adminLogo from "../images/admin_logo.webp";
 import managerLogo from "../images/manager_logo.png";
+
 import "./Modal.css"
-import customerpdf from "../DC_IT_Infra_Customer.pdf"
+
+import Customer_button1 from "../images/DC_IT_Infra_customer1.png";
+import Customer_button2 from "../images/DC_IT_Infra_customer2.png"
 
 const buttonData = [
   {
@@ -109,35 +114,34 @@ const subButtons = {
   customer: [
     {
       title: "Customer Button 1",
-      pdf: customerpdf, // Use PDF file instead of image
+      image: Customer_button1,
     },
     {
       title: "Customer Button 2",
-      pdf: "../path-to-another-pdf-file.pdf", // Another PDF file
+      image: Customer_button2,
     },
   ],
   manager: [
     {
       title: "Manager Button 1",
-      pdf: "../path-to-manager-pdf-file.pdf", // Manager's PDF
+      image: "../images/manager1_image.png",
     },
     {
       title: "Manager Button 2",
-      pdf: "../path-to-another-manager-pdf-file.pdf", // Another Manager's PDF
+      image: "../images/manager2_image.png",
     },
   ],
   admin: [
     {
       title: "Admin Button 1",
-      pdf: "../path-to-admin-pdf-file.pdf", // Admin's PDF
+      image: "../images/admin1_image.png",
     },
     {
       title: "Admin Button 2",
-      pdf: "../path-to-another-admin-pdf-file.pdf", // Another Admin's PDF
+      image: "../images/admin2_image.png",
     },
   ],
 };
-
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -150,7 +154,7 @@ const LandingPage = () => {
 
   // New state for modal
   const [isModalVisible, setModalVisible] = useState(false);
-  const [selectedPdf, setSelectedPdf] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleServiceClick = (service) => {
     setSelectedService(service);
@@ -165,14 +169,14 @@ const LandingPage = () => {
     setTooltipVisible(!isTooltipVisible);
   };
 
-  const showModal = (pdf) => {
-    setSelectedPdf(pdf);
+  const showModal = (image) => {
+    setSelectedImage(image);
     setModalVisible(true);
   };
 
   const closeModal = () => {
     setModalVisible(false);
-    setSelectedPdf(null);
+    setSelectedImage(null);
   };
 
   useEffect(() => {
@@ -301,7 +305,7 @@ const LandingPage = () => {
                         <button
                           key={index}
                           className="sub-button"
-                          onClick={() => showModal(subButton.pdf)}
+                          onClick={() => showModal(subButton.image)}
                         >
                           {subButton.title}
                         </button>
@@ -323,13 +327,11 @@ const LandingPage = () => {
         </div>
       </div>
 
-      {isModalVisible && selectedPdf && (
+      {isModalVisible && (
         <div className="modal">
           <div className="modal-content">
             <span className="close-button" onClick={closeModal}>&times;</span>
-            <Document file={selectedPdf} onLoadError={console.error}>
-              <Page pageNumber={1} />
-            </Document>
+            <img src={selectedImage} alt="Selected" className="modal-image" />
           </div>
         </div>
       )}
