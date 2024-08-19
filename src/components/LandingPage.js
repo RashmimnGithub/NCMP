@@ -175,7 +175,11 @@ const LandingPage = () => {
     try {
       const response = await fetch(`https://api.github.com/repos/RashmimnGithub/private-test/contents/${imageName}`, {
         headers: {
+<<<<<<< HEAD
           // Authorization: `token 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`,  // Replace with your actual token
+=======
+          Authorization: `token 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`,  // Replace with your actual token
+>>>>>>> 27919c1981373eb8642a08dfc4f46f730497077e
           Accept: 'application/vnd.github.v3.raw'
         }
       });
