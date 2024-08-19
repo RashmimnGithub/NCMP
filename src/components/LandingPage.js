@@ -22,10 +22,10 @@ import customerLogo from "../images/customer_logo.png";
 import adminLogo from "../images/admin_logo.webp";
 import managerLogo from "../images/manager_logo.png";
 
-import "./Modal.css"
+// import Customer_button1 from "../images/DC_IT_Infra_customer1.png";
+// import Customer_button2 from "../images/DC_IT_Infra_customer2.png";
 
-import Customer_button1 from "../images/DC_IT_Infra_customer1.png";
-import Customer_button2 from "../images/DC_IT_Infra_customer2.png"
+import "./Modal.css"
 
 const buttonData = [
   {
@@ -56,7 +56,7 @@ const buttonData = [
     path: "https://20.197.35.43:443",
     title: "Evergreen Patching",
     content: "AWX makes it possible for users across an organization to share, vet, and manage automation content by means of a simple, powerful, and agentless technical implementation. IT managers can provide guidelines on how automation is applied to individual teams",
-    department: ["admin"],
+    department: ["admin", "user"],
     image: automation,
     icon: "fa fa-cloud"
   },
@@ -72,7 +72,7 @@ const buttonData = [
     path: "https://netconzone.surpaascompaas.com/surpaas/#",
     title: "Finops",
     content: "FinOps is an operational framework and cultural practice which maximizes the business value of cloud, enables timely data-driven decision making, and creates financial accountability through collaboration between engineering, finance, and business teams.",
-    department: ["admin", "user"],
+    department: ["admin"],
     image: finops,
     icon: "fas fa-hand-holding-usd"
   },
@@ -103,45 +103,45 @@ const buttonData = [
     // path: "https://app.powerbi.com/links/G56uML9AUH?ctid=3865b44b-651f-4df8-a0c8-2625494f6198&pbi_source=linkSharea",
     title: "Dashboard",
     content: "Cloud reporting involves collecting, analyzing, and presenting data generated in a cloud environment to derive valuable insights for better decision-making. It transforms raw data into meaningful charts, graphs, and tables, enabling real-time insights and timely decisions.",
-    department: ["admin"],
+    department: ["admin", "user"],
     image: reporting,
     icon: "fas fa-poll-h"
   },
 ];
 
 
-const subButtons = {
-  customer: [
-    {
-      title: "Customer Button 1",
-      image: Customer_button1,
-    },
-    {
-      title: "Customer Button 2",
-      image: Customer_button2,
-    },
-  ],
-  manager: [
-    {
-      title: "Manager Button 1",
-      image: "../images/manager1_image.png",
-    },
-    {
-      title: "Manager Button 2",
-      image: "../images/manager2_image.png",
-    },
-  ],
-  admin: [
-    {
-      title: "Admin Button 1",
-      image: "../images/admin1_image.png",
-    },
-    {
-      title: "Admin Button 2",
-      image: "../images/admin2_image.png",
-    },
-  ],
-};
+// const subButtons = {
+//   customer: [
+//     {
+//       title: "Customer Button 1",
+//       image: Customer_button1,
+//     },
+//     {
+//       title: "Customer Button 2",
+//       image: Customer_button2,
+//     },
+//   ],
+//   manager: [
+//     {
+//       title: "Manager Button 1",
+//       image: "../images/manager1_image.png",
+//     },
+//     {
+//       title: "Manager Button 2",
+//       image: "../images/manager2_image.png",
+//     },
+//   ],
+//   admin: [
+//     {
+//       title: "Admin Button 1",
+//       image: "../images/admin1_image.png",
+//     },
+//     {
+//       title: "Admin Button 2",
+//       image: "../images/admin2_image.png",
+//     },
+//   ],
+// };
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -151,10 +151,11 @@ const LandingPage = () => {
   const [userInfo, setUserInfo] = useState({ fullName: " ", email: " ", department: " " });
   const [isTooltipVisible, setTooltipVisible] = useState(false);
   const [subButtonCategory, setSubButtonCategory] = useState(null);
+  // const [imageUrl, setImageUrl] = useState('');
 
   // New state for modal
   const [isModalVisible, setModalVisible] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState('');
 
   const handleServiceClick = (service) => {
     setSelectedService(service);
@@ -169,15 +170,69 @@ const LandingPage = () => {
     setTooltipVisible(!isTooltipVisible);
   };
 
-  const showModal = (image) => {
-    setSelectedImage(image);
-    setModalVisible(true);
+  // const fetchImageFromGitHub = async () => {
+  //   const response = await fetch(`https://api.github.com/repos/RashmimnGithub/private-test/contents/${imageName}`, {
+  //     headers: {
+  //       Authorization: `token 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`,
+  //       Accept: 'application/vnd.github.v3.raw'
+  //     }
+  //   });
+  
+  //   if (response.ok) {
+  //     const imageBlob = await response.blob();
+  //     const imageObjectURL = URL.createObjectURL(imageBlob);
+  //     showModal(imageObjectURL);
+  //   } else {
+  //     console.error('Failed to fetch image from GitHub:', response.statusText);
+  //   }
+  // };
+  
+
+
+  const showModal = async (imageName) => {
+    try {
+      const response = await fetch(`https://api.github.com/repos/RashmimnGithub/private-test/contents/${imageName}`, {
+        headers: {
+          Authorization: `token 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`,  // Replace with your actual token
+          Accept: 'application/vnd.github.v3.raw'
+        }
+      });
+
+      if (response.ok) {
+        const imageBlob = await response.blob();
+        const imageObjectURL = URL.createObjectURL(imageBlob);
+        setSelectedImage(imageObjectURL);
+        setModalVisible(true);
+      } else {
+        console.error('Failed to fetch image from GitHub:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error fetching image:', error);
+    }
   };
 
   const closeModal = () => {
     setModalVisible(false);
-    setSelectedImage(null);
+    setSelectedImage('');
   };
+
+  // Effect for handling ESC key to close the modal
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    };
+
+    if (isModalVisible) {
+      document.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.removeEventListener('keydown', handleKeyDown);
+    }
+
+    // Cleanup the event listener on component unmount
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isModalVisible]);
 
   useEffect(() => {
     const fetchUserRole = async () => {
@@ -245,7 +300,7 @@ const LandingPage = () => {
               <span className="sidebar-title">{button.title}</span>
               <i className="fa-solid fa-arrow-right sidebar-arrow"></i> {/* Right arrow icon */}
             </div>
-            
+
           ))}
         </div>
         <div className="content">
@@ -300,16 +355,17 @@ const LandingPage = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="sub-buttons-container">
-                      {subButtons[subButtonCategory].map((subButton, index) => (
-                        <button
-                          key={index}
-                          className="sub-button"
-                          onClick={() => showModal(subButton.image)}
-                        >
-                          {subButton.title}
-                        </button>
-                      ))}
+                    <div className="sub-buttons-container"> 
+                      <button
+                        onClick={() => showModal('DC_IT_Infra_customer1.png')}
+                      >
+                        Customer Button 1
+                      </button>
+                      <button
+                        onClick={() => showModal('DC_IT_Infra_customer2.png')}
+                      >
+                        Customer Button 2
+                      </button>
                     </div>
                   )}
                 </div>
